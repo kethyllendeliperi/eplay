@@ -1,17 +1,10 @@
 import { Link } from 'react-router-dom'
+import { HashLink } from 'react-router-hash-link'
 
-import {
-  HeaderBar,
-  Links,
-  LinkItem,
-  CartButton,
-  MenuHamburguer,
-  HeaderRow,
-  NavMobile
-} from './styles'
+import * as S from './styles'
 
 import logo from '../../assets/images/logo.svg'
-import carrinho from '../../assets/images/carrinho.svg'
+import cartIcon from '../../assets/images/carrinho.svg'
 
 import { open } from '../../store/reducers/cart'
 import { useDispatch, useSelector } from 'react-redux'
@@ -28,50 +21,85 @@ const Header = () => {
   }
 
   return (
-    <HeaderBar>
-      <HeaderRow>
+    <S.HeaderBar>
+      <S.HeaderRow>
         <div>
-          <MenuHamburguer onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <S.MenuHamburguer onClick={() => setIsMenuOpen(!isMenuOpen)}>
             <span />
             <span />
             <span />
-          </MenuHamburguer>
+          </S.MenuHamburguer>
           <Link to="/">
-            <img src={logo} alt="EPLAY" />
+            <h1>
+              <img src={logo} alt="EPLAY" />
+            </h1>
           </Link>
           <nav>
-            <Links>
-              <LinkItem>
-                <Link to="/categories">Categorias</Link>
-              </LinkItem>
-              <LinkItem>
-                <a href="#">Novidades</a>
-              </LinkItem>
-              <LinkItem>
-                <a href="#">Promoções</a>
-              </LinkItem>
-            </Links>
+            <S.Links>
+              <S.LinkItem>
+                <Link
+                  title="Clique aqui para acessar a página de categorias"
+                  to="/categories"
+                >
+                  Categorias
+                </Link>
+              </S.LinkItem>
+              <S.LinkItem>
+                <HashLink
+                  title="Clique aqui para acessar a seção de em breve"
+                  to={'/#coming-soon'}
+                >
+                  Em breve
+                </HashLink>
+              </S.LinkItem>
+              <S.LinkItem>
+                <HashLink
+                  title="Clique aqui para acessar a seção de promoções"
+                  to={'/#on-sale'}
+                >
+                  Promoções
+                </HashLink>
+              </S.LinkItem>
+            </S.Links>
           </nav>
         </div>
-        <CartButton onClick={openCart}>
-          {items.length} <span>- produto(s)</span>
-          <img src={carrinho} alt="carrinho" />
-        </CartButton>
-      </HeaderRow>
-      <NavMobile className={isMenuOpen ? 'is-open' : ''}>
-        <Links>
-          <LinkItem>
-            <Link to="/categories">Categorias</Link>
-          </LinkItem>
-          <LinkItem>
-            <a href="#">Novidades</a>
-          </LinkItem>
-          <LinkItem>
-            <a href="#">Promoções</a>
-          </LinkItem>
-        </Links>
-      </NavMobile>
-    </HeaderBar>
+        <S.CartButton role="button" onClick={openCart}>
+          {items.length} <span> - produto(s)</span>
+          <img src={cartIcon} alt="carrinho" />
+        </S.CartButton>
+      </S.HeaderRow>
+      <S.NavMobile className={isMenuOpen ? 'is-open' : ''}>
+        <S.Links>
+          <S.LinkItem>
+            <Link
+              title="Clique aqui para acessar a página de categorias"
+              to="/categories"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Categorias
+            </Link>
+          </S.LinkItem>
+          <S.LinkItem>
+            <HashLink
+              title="Clique aqui para acessar a seção de em breve"
+              to={'/#coming-soon'}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Em breve
+            </HashLink>
+          </S.LinkItem>
+          <S.LinkItem>
+            <HashLink
+              title="Clique aqui para acessar a seção de promoções"
+              to={'/#on-sale'}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Promoções
+            </HashLink>
+          </S.LinkItem>
+        </S.Links>
+      </S.NavMobile>
+    </S.HeaderBar>
   )
 }
 

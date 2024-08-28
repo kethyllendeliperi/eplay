@@ -19,8 +19,8 @@ function App() {
         </div>
         <Rotas />
         <Footer />
+        <Cart />
       </BrowserRouter>
-      <Cart />
     </Provider>
   )
 }
